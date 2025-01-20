@@ -1,0 +1,101 @@
+Desafío: LiterAlura. Escribe un código en Java conectado a la API Gutendex y utilizando la base de datos PostgreSQL. El código debe incluir las funciones:
+- Búsqueda de libro por título
+- Lista de todos los libros
+- Lista de autores
+- Listar autores vivos en determinado año
+- Cantidad de libros en un determinado idioma
+
+Considera los siguientes pasos:
+
+1) CONFIGURAR EL ENTORNO DE JAVA EN EL PROYECTO SPRING.
+Contar con los siguientes programas, archivos y versiones:
+- Java JDK: versión: 17
+- Maven: versión 4
+- Spring: versión 3.2.3
+- Postgres: versión 16 en adelante
+- Dependencia Spring Data JPA en Spring Initializr
+- Dependencia Postgres Driver en Spring Initializr
+
+2) CONSIDERAR LA API GUTENDEX
+Gutendex (https://gutendex.com/) es un catálogo de información de más de 70.000 libros presentes en Project Gutenberg.
+Los tipos de objetos JSON  para Gutendex son:
+Book
+{
+  "id": <number of Project Gutenberg ID>,
+  "title": <string>,
+  "subjects": <array of strings>,
+  "authors": <array of Persons>,
+  "translators": <array of Persons>,
+  "bookshelves": <array of strings>,
+  "languages": <array of strings>,
+  "copyright": <boolean or null>,
+  "media_type": <string>,
+  "formats": <Format>,
+  "download_count": <number>
+}
+Format
+{
+  <string of MIME-type>: <string of URL>,
+  ...
+}
+Person
+{
+  "birth_year": <number or null>,
+  "death_year": <number or null>,
+  "name": <string>
+}
+
+
+3) CONSTRUIR LA SOLICITUD DE API.
+- Emplear la clase HttpClient para realizar solicitudes a la API de libros y obtener datos esenciales.
+- Usar la clase HttpRequest para configurar y personalizar las solicitudes a la API de libros.
+- Usar la interfaz HttpResponse para gestionar las respuestas recibidas de la API.
+
+4) ANALIZAR LA RESPUESTA EN FORMATO JSON
+- Utilizar la biblioteca Jackson en Java para realizar el mapeo eficiente de los datos JSON a objetos Java.
+- Utilizar las clases proporcionadas por Jackson, como ObjectMapper, para acceder a las distintas propiedades de la respuesta JSON.
+- Agregar la biblioteca Jackson al proyecto como dependencia del archivo POM.xml
+
+5) CONVERTIR DATOS
+- Crear métodos específicos para manejar los datos (atributos del cuerpo JSON transformados a una clase Java). Utiliza métodos como getters, setters and toString().
+- Utilizar las anotaciones @JsonIgnoreProperties y @JsonAlias para obtener los atributos deseados del cuerpo de respuesta json.
+
+
+6) INTERACTUAR CON USUARIO
+- El método Main debe implementar la interfaz CommandLineRunner y su método run() donde deberás llamar un método para exhibir el menu. 
+- Crear un bucle en este método para presentar a tu usuario las opciones de insercion y consulta. 
+- Utiliza la clase Scanner para capturar la entrada del usuario.
+- Exhibir al usuario las informaciones solicitadas.
+
+7) CONSULTAR LIBROS
+
+- Realizar consulta de libro en la API “https://gutendex.com/books/”.
+- Será posible presentar en la consola un listado de todos los libros que ya fueron buscados.
+- Será posible ver un listado con base en el idioma que uno o más libros fueron escritos, con la ayuda de las derived queries.
+
+
+8)PERSISTENCIA DE DATOS
+
+- Utilizar la base de datos PostgreSQL.
+- Crear clases de entidad/modelo para Libro y Autor, así como también sus respectivas interfaces de repositorio para manejar inserción y consultas en la base de datos.
+- Usar las anotaciones correctas y de importar JpaRepository.
+- Al insertar un libro en la base también deberás insertar su autor y así mantener una relación entre los dos objetos vía atributo de identificación (ID).
+
+
+9) LISTANDO LIBROS POR IDIOMAS
+- Utilizar los recursos de Streams de Java y derived queries para brindar estadísticas sobre la cantidad de libros en un determinado idioma en la base de datos. Elija como mínimo dos idiomas.
+
+
+11) LISTANDO AUTORES VIVOS EN DETERMINADO AÑO
+- Utilizar las derived queries para recuperar todos los autores que estaban vivos en el año determinado por el usuario.
+
+
+
+
+
+
+
+
+
+
+
